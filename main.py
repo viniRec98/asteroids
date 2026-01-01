@@ -48,6 +48,9 @@ def main():
         screen.fill("black") #fill the screen with a solid black color
 
 
+        #Move the player
+        my_player.update(dt)
+
 
         #Re-render the player on the screen each frame
         my_player.draw(screen)
