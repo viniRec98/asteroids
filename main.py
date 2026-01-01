@@ -1,4 +1,5 @@
 import pygame
+import player
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 
@@ -10,11 +11,11 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
-    #New clock objetc
+    #New clock object
     clock = pygame.time.Clock()
 
-
-
+    #New player object
+    my_player = player.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     """
     Delta Time
@@ -45,6 +46,14 @@ def main():
 
 
         screen.fill("black") #fill the screen with a solid black color
+
+
+
+        #Re-render the player on the screen each frame
+        my_player.draw(screen)
+
+        
+
         pygame.display.flip() #refresh the screen
 
 
