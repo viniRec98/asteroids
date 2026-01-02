@@ -14,8 +14,21 @@ def main():
     #New clock object
     clock = pygame.time.Clock()
 
+
+    
+    #Creating two new empty groups 
+    updatable = pygame.sprite.Group() #This will hold all the objects that can be updated
+    drawable = pygame.sprite.Group() #This will hold all the objects that can be drawn
+
+
+    player.Player.containers = (updatable, drawable) #Adding the Player class to updatable and drawable groups
+
+
     #New player object
     my_player = player.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+
+    
 
     """
     Delta Time
@@ -23,6 +36,7 @@ def main():
      This value is useful to decouple the game's speed from the speed it's being drawn to the screen.
     """
     dt = 0
+
 
 
 
@@ -49,11 +63,12 @@ def main():
 
 
         #Rotate/move the player
-        my_player.update(dt)
+        updatable.update(dt)
 
 
         #Re-render the player on the screen each frame
-        my_player.draw(screen)
+        for instance in drawable:
+            instance.draw(screen)
 
         
 
