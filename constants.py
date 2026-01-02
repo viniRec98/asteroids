@@ -2,11 +2,17 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
 PLAYER_RADIUS = 20 #The radius of the player's ship
-LINE_WIDTH = 2 #The width of the lines that draw the player's ship
+LINE_WIDTH = 2 #The width of the lines that draw the asteroids and player's ship
 
 PLAYER_TURN_SPEED = 300 #It represents the player's turn speed
 
 PLAYER_SPEED = 200 #It represents a player's speed
+
+
+ASTEROID_MIN_RADIUS = 20
+ASTEROID_KINDS = 3
+ASTEROID_SPAWN_RATE_SECONDS = 0.8
+ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
 
 
 

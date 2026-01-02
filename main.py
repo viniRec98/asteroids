@@ -1,5 +1,7 @@
 import pygame
 import player
+import asteroid
+import asteroidfield
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 
@@ -19,14 +21,19 @@ def main():
     #Creating two new empty groups 
     updatable = pygame.sprite.Group() #This will hold all the objects that can be updated
     drawable = pygame.sprite.Group() #This will hold all the objects that can be drawn
+    asteroids = pygame.sprite.Group() #This will hold all the objects from Asteroid
 
 
     player.Player.containers = (updatable, drawable) #Adding the Player class to updatable and drawable groups
-
+    asteroid.Asteroid.containers = (asteroids, updatable, drawable) #Ensuring that every instance of the Asteroid class is automatically added to these groups upon creation
+    asteroidfield.AsteroidField.containers = (updatable)
 
     #New player object
     my_player = player.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+
+    #New AsteroidField object
+    my_asteroid_field = asteroidfield.AsteroidField()
 
     
 
