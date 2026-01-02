@@ -48,7 +48,7 @@ def main():
         screen.fill("black") #fill the screen with a solid black color
 
 
-        #Move the player
+        #Rotate/move the player
         my_player.update(dt)
 
 

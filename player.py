@@ -2,7 +2,7 @@
 
 import pygame
 import circleshape
-from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED
 
 class Player(circleshape.CircleShape):
     def __init__(self, x, y):
@@ -30,6 +30,17 @@ class Player(circleshape.CircleShape):
             self.rotate(-dt)
         if keys[pygame.K_d]: #rotate to the right if "d" key was pressed
             self.rotate(dt)
+        if keys[pygame.K_w]:
+            self.move(dt) #move forward if "w" was pressed
+        if keys[pygame.K_s]:
+            self.move(-dt) #move backward if "S" was pressed
+
+    
+    def move(self, dt):
+        unit_vector = pygame.Vector2(0, 1) #Unit vector pointing straight up from (0,0) to (0,1) 
+        rotated_vector = unit_vector.rotate(self.rotation) # Rotating that vector by the player's rotation, so it's pointing in the same direction as the player
+        rotated_with_speed_vector = rotated_vector * PLAYER_SPEED * dt #By multiplying these values, the vector is the length the player should move during this frame
+        self.position += rotated_with_speed_vector #Adding the vector to the player's position to move them
 
 
 

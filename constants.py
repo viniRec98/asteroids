@@ -6,6 +6,9 @@ LINE_WIDTH = 2 #The width of the lines that draw the player's ship
 
 PLAYER_TURN_SPEED = 300 #It represents the player's turn speed
 
+PLAYER_SPEED = 200 #It represents a player's speed
+
+
 
 
 
