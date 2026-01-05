@@ -1,9 +1,10 @@
 import pygame
+import sys
 import player
 import asteroid
 import asteroidfield
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
-from logger import log_state
+from logger import log_state, log_event
 
 def main():
     #Initialize pygame
@@ -18,7 +19,7 @@ def main():
 
 
     
-    #Creating two new empty groups 
+    #Creating new empty groups 
     updatable = pygame.sprite.Group() #This will hold all the objects that can be updated
     drawable = pygame.sprite.Group() #This will hold all the objects that can be drawn
     asteroids = pygame.sprite.Group() #This will hold all the objects from Asteroid
@@ -71,6 +72,14 @@ def main():
 
         #Rotate/move the player
         updatable.update(dt)
+
+
+        #Check if any asteroid collides with the player
+        for asteroid_instace in asteroids:
+            if asteroid_instace.collides_with(my_player):
+                log_event("player_hit")
+                print("Game Over!")
+                sys.exit()
 
 
         #Re-render the player on the screen each frame
