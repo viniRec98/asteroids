@@ -2,7 +2,8 @@
 
 import pygame
 import circleshape
-from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED
+import shot
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED, SHOT_RADIUS, PLAYER_SHOOT_SPEED
 
 class Player(circleshape.CircleShape):
     def __init__(self, x, y):
@@ -34,6 +35,8 @@ class Player(circleshape.CircleShape):
             self.move(dt) #move forward if "w" was pressed
         if keys[pygame.K_s]:
             self.move(-dt) #move backward if "S" was pressed
+        if keys[pygame.K_SPACE]: #shoot if "spacebar" was pressed
+            self.shoot()
 
     
     def move(self, dt):
@@ -44,3 +47,9 @@ class Player(circleshape.CircleShape):
 
 
 
+    def shoot(self):
+        new_shot = shot.Shot(self.position.x, self.position.y, SHOT_RADIUS) #Creating a Shot object at the current position of the player
+        new_shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED #vector that is in the direction the player is facing which is scaled up to make it move faster
+
+
+      
