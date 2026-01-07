@@ -3,12 +3,13 @@
 import pygame
 import circleshape
 import shot
-from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED, SHOT_RADIUS, PLAYER_SHOOT_SPEED
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED, SHOT_RADIUS, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS
 
 class Player(circleshape.CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
+        self.shot_cooldown_timer = 0
     
     # A player will look like a triangle, even though I'll use a circle to represent its hitbox.
     def triangle(self):
@@ -25,6 +26,7 @@ class Player(circleshape.CircleShape):
 
 
     def update(self, dt):
+        self.shot_cooldown_timer -= dt #constantly ticking down the shot_cooldown_timer
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]: #rotate to the left if "a" key was pressed
@@ -48,8 +50,11 @@ class Player(circleshape.CircleShape):
 
 
     def shoot(self):
-        new_shot = shot.Shot(self.position.x, self.position.y, SHOT_RADIUS) #Creating a Shot object at the current position of the player
-        new_shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED #vector that is in the direction the player is facing which is scaled up to make it move faster
+        #implementing a "rate limit" (a small delay between each shot) for the player's shooting ability, one shot every 0.3 seconds
+        if not self.shot_cooldown_timer > 0:
+            new_shot = shot.Shot(self.position.x, self.position.y, SHOT_RADIUS) #Creating a Shot object at the current position of the player
+            new_shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED #vector that is in the direction the player is facing which is scaled up to make it move faster
+            self.shot_cooldown_timer = PLAYER_SHOOT_COOLDOWN_SECONDS #shot_cooldown_timer is immediately reset to start counting down again
 
 
-      
+
