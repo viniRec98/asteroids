@@ -86,6 +86,13 @@ def main():
                 print("Game Over!")
                 sys.exit()
 
+            #check if each shot collides with the asteorid
+            for shot_instance in shots:
+                if asteroid_instace.collides_with(shot_instance):
+                    log_event("asteroid_shot")
+                    shot_instance.kill()
+                    asteroid_instace.kill()
+
 
         #Re-render the player on the screen each frame
         for instance in drawable:
