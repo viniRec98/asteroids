@@ -91,7 +91,7 @@ def main():
                 if asteroid_instace.collides_with(shot_instance):
                     log_event("asteroid_shot")
                     shot_instance.kill()
-                    asteroid_instace.kill()
+                    asteroid_instace.split()
 
 
         #Re-render the player on the screen each frame
